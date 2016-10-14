@@ -1,5 +1,5 @@
 
-# MRXT #
+# MRXT: The Multi-Robot eXploration Tool #
 
 The Multi-robot eXploration Tool MRXT is a mobile robot simulator for testing Exploration and SLAM algorithms. 
 
