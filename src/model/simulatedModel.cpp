@@ -614,7 +614,7 @@ void simulatedModel::loadMapFile(const ConfigFile& config){
 //	if (config.read<bool>("RANDOM")){
 		if (omap) delete omap;
 		omap = gridMapFactory::Instance().CreateObject(config.read<int>("GRIDMAPTYPE"),0.0,0.0,0.0,0.0,0.0);
-		strcpy(omapfilename, ((QDir::homePath()+="/.mrxt/maps/")+=config.read<string>("GRIDMAP").c_str()).toStdString().c_str());
+		strcpy(omapfilename, ((QDir::currentPath()+"/maps/")+config.read<string>("GRIDMAP").c_str()).toStdString().c_str());
 		omap->loadMapFromFile(omapfilename);	
 //	}
 

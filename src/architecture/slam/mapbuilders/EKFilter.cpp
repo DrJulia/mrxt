@@ -85,6 +85,7 @@ EKFilter::~EKFilter(){
 		sprintf(myfilestr,"%sppmap.jpg",logstr);
 		ppmap->saveMapAsImage(myfilestr);
 		sprintf(myfilestr,"%svmap",logstr);
+        printf("save path: %s\n",myfilestr);
 		vmap->saveMap(myfilestr);
 	}
 	if (robotcells)			delete[] robotcells;

@@ -160,10 +160,10 @@ void vMapArray::clear(){
 }
 
 void vMapArray::saveMap(const char* str)  {
-	char mystr[50];
+	char mystr[150];
 	sprintf(mystr,"%s.m",str);
 	FILE * outfile = fopen( mystr, "w" );
-	fprintf(outfile,"landmarks_map=[",str);
+	fprintf(outfile,"landmarks_map=[");
 	for(int i = 0; i < nlandmarks; i++)
 		fprintf(outfile, "%e,%e,%e,%e,%e,%e,%e,%e,%e,%e,%e,%e,%f\n",landmarks[i].pos.getX(), landmarks[i].pos.getY(), landmarks[i].pos.getZ(),
 		landmarks[i].covariance(0,0), landmarks[i].covariance(0,1), landmarks[i].covariance(0,2),

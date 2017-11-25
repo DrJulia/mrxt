@@ -44,9 +44,9 @@ MainWindow::MainWindow(QWidget *parent) :
 	setupUi(this);
 	show();
 	
-	// cargar config files
-	appConf = new ConfigFile(  ( QDir::homePath()+="/.mrxt/config/app.config").toStdString().c_str() );
-	slamConf = new ConfigFile( ( QDir::homePath()+="/.mrxt/config/slam.config").toStdString().c_str() );
+	// load config files
+	appConf = new ConfigFile(  ( QDir::currentPath()+"/config/app.config").toStdString().c_str() );
+	slamConf = new ConfigFile( ( QDir::currentPath()+"/config/slam.config").toStdString().c_str() );
 
 	qRegisterMetaType<rlines>("rlines");
 	qRegisterMetaType<rposes>("rposes");
@@ -134,7 +134,7 @@ MainWindow::~MainWindow(){
 void MainWindow::openScenario(bool checked){
 
 	QString fileName;
-	fileName = QFileDialog::getOpenFileName(this, tr("Open Map File"), QDir::homePath()+="/.mrxt/maps", tr("map files (*.map)"));
+	fileName = QFileDialog::getOpenFileName(this, tr("Open Map File"), QDir::currentPath()+"/maps", tr("map files (*.map)"));
 
 	try{
 		if (fileName.size() > 0){
@@ -162,9 +162,9 @@ void MainWindow::openScenario(bool checked){
 
 
 void MainWindow::saveOmap(bool checked){
-	QString fileName = QFileDialog::getSaveFileName(this, tr("Save Occupancy Grid Map"), QDir::homePath()+="/.mrxt/outfiles", tr("Images (*.jpg)"));
+	QString fileName = QFileDialog::getSaveFileName(this, tr("Save Occupancy Grid Map"), QDir::currentPath()+"/outfiles", tr("Images (*.jpg)"));
 	try{
-		QFile::copy(QDir::homePath()+="/.mrxt/outfiles/tempLogomap.jpg", fileName);
+		QFile::copy(QDir::currentPath()+"/outfiles/tempLogomap.jpg", fileName);
 	}
 	catch( ... ){
 		printf("Error saving file");
@@ -172,9 +172,9 @@ void MainWindow::saveOmap(bool checked){
 }
 
 void MainWindow::saveVmap(bool checked){
-	QString fileName = QFileDialog::getSaveFileName(this, tr("Save Landmarks Map"),QDir::homePath()+="/.mrxt/outfiles", tr("matlab m-file (*.m)"));
+	QString fileName = QFileDialog::getSaveFileName(this, tr("Save Landmarks Map"),QDir::currentPath()+"/outfiles", tr("matlab m-file (*.m)"));
 	try{
-		QFile::copy(QDir::homePath()+="/.mrxt/outfiles/tempLogvmap.m",fileName);
+		QFile::copy(QDir::currentPath()+"/outfiles/tempLogvmap.m",fileName);
 	}
 	catch( ... ){
 		printf("Error saving file");
@@ -182,18 +182,18 @@ void MainWindow::saveVmap(bool checked){
 }
 
 void MainWindow::saveSLAMlog(bool checked){
-	QString fileName = QFileDialog::getSaveFileName(this, tr("Save SLAM log"), QDir::homePath()+="/.mrxt/outfiles", tr("matlab m-file (*.m)"));
+	QString fileName = QFileDialog::getSaveFileName(this, tr("Save SLAM log"), QDir::currentPath()+"/outfiles", tr("matlab m-file (*.m)"));
 	try{
-		QFile::copy(QDir::homePath()+="/.mrxt/outfiles/tempLogslam.m",fileName);
+		QFile::copy(QDir::currentPath()+"/outfiles/tempLogslam.m",fileName);
 	}
 	catch( ... ){
 		printf("Error saving file");
 	}
 }
 void MainWindow::saveGTlog(bool checked){
-	QString fileName = QFileDialog::getSaveFileName(this, tr("Save Ground Truth log"), QDir::homePath()+="/.mrxt/outfiles", tr("matlab m-file (*.m)"));
+	QString fileName = QFileDialog::getSaveFileName(this, tr("Save Ground Truth log"), QDir::currentPath()+"/outfiles", tr("matlab m-file (*.m)"));
 	try{
-		QFile::copy(QDir::homePath()+="/.mrxt/outfiles/tempLogGT.m",fileName);
+		QFile::copy(QDir::currentPath()+"/outfiles/tempLogGT.m",fileName);
 	}
 	catch( ... ){
 		printf("Error saving file");
@@ -555,7 +555,7 @@ void MainWindow::openAppConfigDiag(bool){
 		appDiag.setupUi(&diag);
 
 		appDiag.sampleTimeSpinBox->setValue(appConf->read<double>("SAMPLE_TIME"));
-		appDiag.groupPosesCheckBox->setChecked(appConf->read<bool>("GROUPINITIALPOSES"));	
+		appDiag.groupPosesCheckBox->setChecked(appConf->read<bool>("GROUPINITIALPOSES"));
 		appDiag.maxIniPoseDistSpinBox->setValue(appConf->read<double>("MAXDISTINIPOSE"));
 		appDiag.minIniPoseDistSpinBox->setValue(appConf->read<double>("MINDISTINIPOSE"));
 
@@ -767,25 +767,25 @@ void MainWindow::changeSlam(bool){
 void MainWindow::changeStrategy(bool){
 	if (expConf) delete expConf;
 	if (actionHybrid->isChecked()){
-		expConf = new ConfigFile((QDir::homePath() += "/.mrxt/config/tec0.config").toStdString().c_str());
+		expConf = new ConfigFile((QDir::currentPath() + "/config/tec0.config").toStdString().c_str());
 	}
 	else  if (actionBehaviour_Based->isChecked()){
-		expConf = new ConfigFile((QDir::homePath() += "/.mrxt/config/tec1.config").toStdString().c_str());	
+		expConf = new ConfigFile((QDir::currentPath() + "/config/tec1.config").toStdString().c_str());	
 	}	
 	else  if (actionNearest_Frontier->isChecked()){
-		expConf = new ConfigFile((QDir::homePath() += "/.mrxt/config/tec2.config").toStdString().c_str());	
+		expConf = new ConfigFile((QDir::currentPath() + "/config/tec2.config").toStdString().c_str());	
 	}	
 	else  if (actionCost_Utility->isChecked()){
-		expConf = new ConfigFile((QDir::homePath() += "/.mrxt/config/tec3.config").toStdString().c_str());	
+		expConf = new ConfigFile((QDir::currentPath() + "/config/tec3.config").toStdString().c_str());	
 	}	
 	else  if (actionCoordinated->isChecked()){
-		expConf = new ConfigFile((QDir::homePath() += "/.mrxt/config/tec4.config").toStdString().c_str());	
+		expConf = new ConfigFile((QDir::currentPath() + "/config/tec4.config").toStdString().c_str());	
 	}	
 	else  if (actionMarket_Based->isChecked()){
-		expConf = new ConfigFile((QDir::homePath() += "/.mrxt/config/tec5.config").toStdString().c_str());	
+		expConf = new ConfigFile((QDir::currentPath() + "/config/tec5.config").toStdString().c_str());	
 	}	
 	else  if (actionIntegrated->isChecked()){
-		expConf = new ConfigFile((QDir::homePath() += "/.mrxt/config/tec6.config").toStdString().c_str());	
+		expConf = new ConfigFile((QDir::currentPath() + "/config/tec6.config").toStdString().c_str());	
 	}
 	else expConf = 0;
 }
@@ -809,11 +809,11 @@ void MainWindow::startSimulation(bool){
 		actionSaveGTlog->setEnabled(false);
 		spinBox->setDisabled(true);
 		myteam = new team(numrobots, *scene, *expConf, *slamConf, robots::EXPLORER, "explorers");
-		QString tempLogpath = QDir::homePath() += "/.mrxt/outfiles/tempLog";
+		QString tempLogpath = QDir::currentPath() + "/outfiles/tempLog";
 		myteam->setLogName(tempLogpath.toStdString().c_str());
 		slam = myteam->getGlobalSlam();
 		connect( slam, SIGNAL(slamUpdated(void)), this, SLOT(updateSlam(void)));
-		QString tempLogGTpath = QDir::homePath() += "/.mrxt/outfiles/tempLogGT";
+		QString tempLogGTpath = QDir::currentPath() + "/outfiles/tempLogGT";
 		scene->setLogName(tempLogGTpath.toStdString().c_str());
 		scene->run();
 		myteam->start();

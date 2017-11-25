@@ -13,18 +13,24 @@ Please cite the most appropriate of these works if you use MRXT
 
 # Installation #
 
-MRXT has been tested in Ubuntu 12.04.
+MRXT has been tested in Ubuntu 14.04
 
 Requirements:
 * Qt4
-* Loki
-* OpenCV
+* Loki 
+* OpenCV 2.4.8
 
-To install MRXT:
-qmake
-make
-make install
+sudo apt-get install libqt4-dev libloki-dev libopencv-dev
+
+To compile MRXT:
+
+mkdir build
+cd build
+cmake ..
+make 
 
 To run MRXT:
-mrxt
+
+cd bin
+./mrxt
 
